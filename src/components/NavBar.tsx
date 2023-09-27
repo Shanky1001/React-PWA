@@ -17,7 +17,7 @@ const NavBar = () => {
 						className="me-auto my-2 my-lg-0"
 						navbarScroll
 					>
-						<Nav.Link href="#action1">Home</Nav.Link>
+						<Link to="/">Home</Link>
 						<Link to="/users">Users</Link>
 						<Link to="/contact">
 							Contact

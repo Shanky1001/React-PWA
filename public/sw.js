@@ -5,7 +5,9 @@ this.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(cacheVersion).then((cache) => {
             cache.addAll([
-                "/static/js/bundle.js","/"
+                "/static/js/bundle.js", "/", 
+                "/users",
+                "https://jsonplaceholder.typicode.com/users"
             ])
         }).catch((err) => {
             console.log("failed to cache")
@@ -15,13 +17,15 @@ this.addEventListener("install", (event) => {
 
 // Consuming the cache
 this.addEventListener("fetch", (event) => {
-    event.respondWith(
-        caches.match(event.request).then((res) => {
-            if (res) {
-                return res
-            }
-        }).catch(() => {
-            console.log("failed to fetch from cache")
-        })
-    )
+    if (!navigator.onLine) {
+        event.respondWith(
+            caches.match(event.request).then((res) => {
+                if (res) {
+                    return res
+                }
+            }).catch(() => {
+                console.log("failed to fetch from cache")
+            })
+        )
+    }
 })
